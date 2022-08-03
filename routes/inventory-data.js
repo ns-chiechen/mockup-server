@@ -387,28 +387,17 @@ exports.FILTERS = [
         "type": "SearchFilter"
     },
     {
-        "key": "app_suite",
-        "fetch_options_uri": "inventory/filters/getappsuite",
-        "type": "MultiSelectFilter",
-        "children": [
-        "app_name"
-        ]
-    },
-    {
         "key": "app_name",
         "fetch_options_uri": "inventory/filters/getappname",
         "type": "MultiSelectFilter",
         "children": [
-        "app_category"
+            "app_category"
         ]
     },
     {
         "key": "app_category",
         "fetch_options_uri": "inventory/filters/getappcategory",
         "type": "MultiSelectFilter",
-        "childer": [
-        "instance_group"
-        ]
     },
     {
         "key": "resource_type",
