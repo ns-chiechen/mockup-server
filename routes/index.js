@@ -1,5 +1,6 @@
-var MOCK = require('./data.js'); 
+var MOCK_UA = require('./data.js'); 
 var MOCK_INVENTORY = require('./inventory-data.js');
+var MOCK_TAKO = require('./tako-data.js');
 var express = require('express');
 var router = express.Router();
 var http = require('http');
@@ -38,7 +39,7 @@ const wrapper_log_body = function(fn) {
 router.get('/alwaysFailed400', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   res.status(400);
-  var ret = MOCK.USER_ERROR_JSON
+  var ret = MOCK_UA.USER_ERROR_JSON
   res.send(ret)
 });
 
@@ -60,7 +61,7 @@ const METHOD = {
 };
 
 // inventory 
-const ENDPOINTS_INVENTORY = {
+const INVENTORY_ENDPOINTS = {
   RESOURCES: {
     path: '/inventory/getresources',
     method: METHOD.POST,
@@ -87,57 +88,74 @@ const ENDPOINTS_INVENTORY = {
   },
   DETAILS: {
     path: '/inventory/:id',
-    method: METHOD.POST,
+    method: METHOD.GET,
     status: 200,
-    response: MOCK_INVENTORY.DETAILS,
+    response: (req) => {
+      if (typeof req.params.id === 'string') {
+        const resource_type = req.params.id.match('fake_id_(.*)');
+        console.log(`DETAILS_${resource_type[1].toUpperCase()}`);
+        return resource_type.length > 0 ? MOCK_INVENTORY[`DETAILS_${resource_type[1].toUpperCase()}`] : MOCK_INVENTORY.DETAILS_FILES;
+      } 
+      return MOCK_INVENTORY.DETAILS_FILES;
+    }
   }
 }
 
+// tako
+const TAKO_ENDPOINTS = {
+  INTERNAL_DOMAINS: {
+    path: '/tako/getInternalDomains',
+    method: METHOD.POST,
+    status: 200,
+    response: MOCK_TAKO.INTERNAL_DOMAINS,
+  }
+};
+
 // unified auth
-const ENDPOINTS_GET = {
+const UA_ENDPOINTS_GET = {
   APPS: {
     path: '/internal/tenants/:tenantid/services/:servicename/apps',
     method: METHOD.GET,
     status: 200,
-    response: MOCK.APPS_RESPONSE,
+    response: MOCK_UA.APPS_RESPONSE,
     // debug_set: 400
   },
   INSTANCES: {
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances',
     method: METHOD.GET,
     status: 200,
-    response: MOCK.GENERATE_INSTANCES_RESPONSE,
+    response: MOCK_UA.GENERATE_INSTANCES_RESPONSE,
     // debug_set: 400
   },
   CREATEFORM: { 
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/_/create_form',
     method: METHOD.GET,
     status: 200,
-    response: MOCK.CREATEFORM_RESPONSE_ZOOM,
-    // use MOCK.CREATEFORM_RESPONSE_NOFORM to test the no-form flow
-    // response: MOCK.CREATEFORM_RESPONSE_NOFORM,
+    response: MOCK_UA.CREATEFORM_RESPONSE_ZOOM,
+    // use MOCK_UA.CREATEFORM_RESPONSE_NOFORM to test the no-form flow
+    // response: MOCK_UA.CREATEFORM_RESPONSE_NOFORM,
     // debug_set: 500
   },
   REGRANTFORM: { 
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/:instancename/regrant_form',
     method: METHOD.GET,
     status: 200,
-    response: MOCK.REGRANTFORM_RESPONSE
+    response: MOCK_UA.REGRANTFORM_RESPONSE
   },
   EDITFORM: { 
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/:instancename/edit_form',
     method: METHOD.GET,
     status: 200,
-    response: MOCK.EDITFORM_RESPONSE
+    response: MOCK_UA.EDITFORM_RESPONSE
   },
 };
 
-const ENDPOINTS_POST = {
+const UA_ENDPOINTS_POST = {
   STARTAUTH: {
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/:instancename/start_auth',
     status: 200,
     method: METHOD.POST,
-    response: MOCK.STARTAUTH_RESPONSE,
+    response: MOCK_UA.STARTAUTH_RESPONSE,
     debug_set: DEBUG.STARTAUTH_SET_REDIRECT_URL_INVALID
     // debug_set: 400
   },
@@ -145,41 +163,45 @@ const ENDPOINTS_POST = {
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/:instancename/finish_auth',
     method: METHOD.POST,
     status: 200,
-    response: MOCK.FINISHAUTH_RESPONSE,
+    response: MOCK_UA.FINISHAUTH_RESPONSE,
     // debug_set: 400
   }
 }
 
-const ENDPOINTS_PATCH = {
+const UA_ENDPOINTS_PATCH = {
   PATCHINSTANCE: {
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/:instancename',
     method: METHOD.PATCH,
     status: 200,
-    response: MOCK.PATCHINSTANCE_RESPONSE,
+    response: MOCK_UA.PATCHINSTANCE_RESPONSE,
     // debug_set: 400
   }
 }
-const ENDPOINTS_DELETE = {
+const UA_ENDPOINTS_DELETE = {
   DELETEINSTANCE: {
     path: '/internal/tenants/:tenantid/services/:servicename/apps/:appname/instances/:instancename',
     method: METHOD.DELETE,
     status: 200,
-    response: MOCK.DELETEINSTANCE_RESPONSE,
+    response: MOCK_UA.DELETEINSTANCE_RESPONSE,
     // debug_set: 500
   }
 }
 
 // configs
 const CONFIG_UNIFIED_AUTH = {
-  ...ENDPOINTS_GET,
-  ...ENDPOINTS_POST,
-  ...ENDPOINTS_PATCH,
-  ...ENDPOINTS_DELETE
+  ...UA_ENDPOINTS_GET,
+  ...UA_ENDPOINTS_POST,
+  ...UA_ENDPOINTS_PATCH,
+  ...UA_ENDPOINTS_DELETE
 };
 
 const CONFIG_INVENTORY = {
-  ...ENDPOINTS_INVENTORY
+  ...INVENTORY_ENDPOINTS
 };
+
+const CONFIG_TAKO = {
+  ...TAKO_ENDPOINTS
+}
 
 const _setRouter = (ep_config) => {
   const method = ep_config.method;
@@ -200,7 +222,7 @@ const _setRouter = (ep_config) => {
       switch(debug_set) {
         case DEBUG.E400:
           res.status(400);
-          res.send(JSON.stringify(MOCK.USER_ERROR_JSON));
+          res.send(JSON.stringify(MOCK_UA.USER_ERROR_JSON));
           break;
         case DEBUG.E500:
           res.status(500);
@@ -259,4 +281,5 @@ router.get('/happy_login', (req, res, next) => {
 });
 
 setRouters(CONFIG_INVENTORY);
+setRouters(CONFIG_TAKO);
 module.exports = router;

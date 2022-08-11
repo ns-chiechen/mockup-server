@@ -1,32 +1,68 @@
 exports.RESOURCES = {
     "data": [
-        {
-            "app_category": "",
-            "app_name": "",
-            "app_suite": "Microsoft365",
-            "instance_name": "",
-            "netskope_instance_name": "",
-            "parent_res_type": "",
-            "region_id": "",
-            "region_name": "",
-            "resource_id": "",
-            "resource_name": "",
-            "resource_type": "MalwareFilterPolicy",
+        { // Message
+            "app_category": "Chat Channel Conversation",
+            "app_name": "Slack",
+            "app_suite": "Slack",
+            "instance_name": "test instance",
+            "resource_id": "fake_id_message",
+            "resource_name": "slack_message_01",
+            "resource_type": "message",
             "exposure": "fake_exposure",
             "creation_time": 53
         },
-        {
-            "app_category": "",
-            "app_name": "",
-            "app_suite": "Microsoft365",
-            "instance_name": "",
-            "netskope_instance_name": "",
-            "parent_res_type": "",
-            "region_id": "",
-            "region_name": "",
-            "resource_id": "",
-            "resource_name": "",
-            "resource_type": "RemoteDomain",
+        { // Repository
+            "app_category": "Development Tools",
+            "app_name": "GitHub",
+            "app_suite": "GitHub",
+            "instance_name": "test instance",
+            "resource_id": "fake_id_repository",
+            "resource_name": "github_repot_01",
+            "resource_type": "repository",
+            "exposure": "fake_exposure",
+            "creation_time": 53
+        },
+        { // File
+            "app_category": "Cloud Storage",
+            "app_name": "Box",
+            "app_suite": "Box",
+            "instance_name": "test instance",
+            "resource_id": "fake_id_file",
+            "resource_name": "box_file_01",
+            "resource_type": "file",
+            "exposure": "fake_exposure",
+            "creation_time": 53
+        },
+        { // Ticket
+            "app_category": "Ticket",
+            "app_name": "Zendesk",
+            "app_suite": "Zendesk",
+            "instance_name": "test instance",
+            "resource_id": "fake_id_ticket",
+            "resource_name": "zendesk_ticket_01",
+            "resource_type": "ticket",
+            "exposure": "fake_exposure",
+            "creation_time": 53
+        },
+        { // User
+            "app_category": "Cloud Storage",
+            "app_name": "Box",
+            "app_suite": "Box",
+            "instance_name": "test instance",
+            "resource_id": "fake_id_user",
+            "resource_name": "box_user_01",
+            "resource_type": "user",
+            "exposure": "fake_exposure",
+            "creation_time": 53
+        },
+        { // User Group
+            "app_category": "Cloud Storage",
+            "app_name": "Google Drive",
+            "app_suite": "Google Drive",
+            "instance_name": "test instance",
+            "resource_id": "fake_id_user_group",
+            "resource_name": "gdrive_user_group_01",
+            "resource_type": "user_group",
             "exposure": "fake_exposure",
             "creation_time": 53
         },
@@ -640,3 +676,75 @@ exports.DETAILS = {
         "total_count": 0
     }
 };
+
+exports.DETAILS_REPOSITORY = {
+    "app_name": "GitHub",
+    "app_suite": "GitHub",
+    "app_category": "Development Tools",
+    "app_instance": "instancename01",
+    "created": "2022-03-15T14:56:52+00:00",
+    "name": "test-Netskope-organization",
+    "timestamp": "2022-03-19T01:04:40+00:00",
+    "repository_url": "https://github.com/netSkope/test-Netskope-organization/"
+};
+
+exports.DETAILS_FILE = {
+    "app_name": "Box",
+    "app_suite": "Box",
+    "app_category": "Cloud Storage",
+    "app_instance": "test instance",
+    "created": "2022-03-15T14:56:52+00:00",
+    "timestamp": "2022-03-19T01:04:40+00:00",
+    "content_hash": "dd54c0824782fb39fabbe07ba74746ef",
+    "id": "fake_id",
+    "size": "2 MB",
+    "mime_type": "PDF",
+};
+
+exports.DETAILS_MESSAGE = {
+    "app_name": "Slack",
+    "app_suite": "Slack",
+    "app_category": "Chat Channel Conversation",
+    "app_instance": "test instance",
+    "created": "2022-03-15T14:56:52+00:00",
+    "timestamp": "2022-03-19T01:04:40+00:00",
+};
+
+exports.DETAILS_TICKET = {
+    "app_name": "Zendesk",
+    "app_suite": "Zendesk",
+    "app_category": "Ticket",
+    "app_instance": "test instance",
+    "created": "2022-03-15T14:56:52+00:00",
+    "timestamp": "2022-03-19T01:04:40+00:00",
+    
+};
+
+exports.DETAILS_USER = {
+    "app_name": "Box",
+    "app_suite": "Box",
+    "app_category": "Cloud Storage",
+    "app_instance": "test instance",
+    "created": "2022-03-15T14:56:52+00:00",
+    "timestamp": "2022-03-19T01:04:40+00:00",
+    "display_name": "Akhil Patel",
+    "email": "apatel@netskope.com",
+    "type": "admin",
+    "id" : "fake_id",
+    "confidence_score": 100,
+    "exposure": "private",
+};
+
+exports.DETAILS_USER_GROUP = {
+    "app_name": "Google Drive",
+    "app_suite": "Google Drive",
+    "app_category": "Cloud Storage",
+    "app_instance": "test instance",
+    "created": "2022-03-15T14:56:52+00:00",
+    "timestamp": "2022-03-19T01:04:40+00:00",
+    "email": "apatel@netskope.com",
+    "name": "TestTeamName",
+    "id": "fake_id",
+    "exposure": "private",
+};
+
