@@ -682,10 +682,11 @@ exports.DETAILS_REPOSITORY = {
     "app_suite": "GitHub",
     "app_category": "Development Tools",
     "app_instance": "instancename01",
-    "created": "2022-03-15T14:56:52+00:00",
+    "created": 1654072498,
     "name": "test-Netskope-organization",
-    "timestamp": "2022-03-19T01:04:40+00:00",
-    "repository_url": "https://github.com/netSkope/test-Netskope-organization/"
+    "timestamp": 1660718231,
+    "repository_url": "https://github.com/netSkope/test-Netskope-organization/",
+    "id" : "fake_id",
 };
 
 exports.DETAILS_FILE = {
@@ -693,12 +694,13 @@ exports.DETAILS_FILE = {
     "app_suite": "Box",
     "app_category": "Cloud Storage",
     "app_instance": "test instance",
-    "created": "2022-03-15T14:56:52+00:00",
-    "timestamp": "2022-03-19T01:04:40+00:00",
+    "created": 1654072498,
+    "timestamp": 1660718231,
     "content_hash": "dd54c0824782fb39fabbe07ba74746ef",
     "id": "fake_id",
     "size": "2 MB",
     "mime_type": "PDF",
+    "name": "box_file_01",
 };
 
 exports.DETAILS_MESSAGE = {
@@ -706,8 +708,10 @@ exports.DETAILS_MESSAGE = {
     "app_suite": "Slack",
     "app_category": "Chat Channel Conversation",
     "app_instance": "test instance",
-    "created": "2022-03-15T14:56:52+00:00",
-    "timestamp": "2022-03-19T01:04:40+00:00",
+    "created": 1654072498,
+    "timestamp": 1660718231,
+    "id" : "fake_id",
+    "name": "slack_message_01",
 };
 
 exports.DETAILS_TICKET = {
@@ -715,9 +719,10 @@ exports.DETAILS_TICKET = {
     "app_suite": "Zendesk",
     "app_category": "Ticket",
     "app_instance": "test instance",
-    "created": "2022-03-15T14:56:52+00:00",
-    "timestamp": "2022-03-19T01:04:40+00:00",
-    
+    "created": 1654072498,
+    "timestamp": 1660718231,
+    "id" : "fake_id",
+    "name": "zendesk_ticket_01",
 };
 
 exports.DETAILS_USER = {
@@ -725,14 +730,15 @@ exports.DETAILS_USER = {
     "app_suite": "Box",
     "app_category": "Cloud Storage",
     "app_instance": "test instance",
-    "created": "2022-03-15T14:56:52+00:00",
-    "timestamp": "2022-03-19T01:04:40+00:00",
+    "created": 1654072498,
+    "timestamp": 1660718231,
     "display_name": "Akhil Patel",
     "email": "apatel@netskope.com",
     "type": "admin",
     "id" : "fake_id",
     "confidence_score": 100,
     "exposure": "private",
+    "name": "box_user_01",
 };
 
 exports.DETAILS_USER_GROUP = {
@@ -740,8 +746,8 @@ exports.DETAILS_USER_GROUP = {
     "app_suite": "Google Drive",
     "app_category": "Cloud Storage",
     "app_instance": "test instance",
-    "created": "2022-03-15T14:56:52+00:00",
-    "timestamp": "2022-03-19T01:04:40+00:00",
+    "created": 1654072498,
+    "timestamp": 1660718231,
     "email": "apatel@netskope.com",
     "name": "TestTeamName",
     "id": "fake_id",
